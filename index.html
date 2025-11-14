@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eisenhower Matrix</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Eisenhower Matrix</h1>
+            <div id="daily-quote" class="daily-quote"></div>
+            <div class="date-navigation">
+                <button id="prev-day">&larr; Previous Day</button>
+                <h2 id="current-date"></h2>
+                <button id="next-day">Next Day &rarr;</button>
+            </div>
+        </header>
+
+        <div class="matrix">
+            <div class="quadrant urgent-important">
+                <h3>Do Now</h3>
+                <p>Urgent & Important</p>
+                <div class="task-list" id="do-now-tasks"></div>
+            </div>
+
+            <div class="quadrant important-not-urgent">
+                <h3>Schedule</h3>
+                <p>Important but Not Urgent</p>
+                <div class="task-list" id="schedule-tasks"></div>
+            </div>
+
+            <div class="quadrant urgent-not-important">
+                <h3>Delegate</h3>
+                <p>Urgent but Not Important</p>
+                <div class="task-list" id="delegate-tasks"></div>
+            </div>
+
+            <div class="quadrant not-urgent-not-important">
+                <h3>Eliminate</h3>
+                <p>Neither Urgent nor Important</p>
+                <div class="task-list" id="eliminate-tasks"></div>
+            </div>
+        </div>
+
+        <div class="task-input-section">
+            <div class="task-input">
+                <input type="text" id="task-input" placeholder="Enter a new task..." maxlength="200">
+                <button id="add-task">Add Task</button>
+            </div>
+            <div class="quadrant-selector">
+                <label>Quadrant:</label>
+                <select id="quadrant-select">
+                    <option value="do-now">Do Now (Urgent & Important)</option>
+                    <option value="schedule">Schedule (Important but Not Urgent)</option>
+                    <option value="delegate">Delegate (Urgent but Not Important)</option>
+                    <option value="eliminate">Eliminate (Neither Urgent nor Important)</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="copy-section">
+            <button id="auto-copy-tasks">Auto-Copy Previous Tasks</button>
+            <button id="copy-matrix">Copy Today's Matrix</button>
+            <button id="paste-matrix" disabled>Paste Matrix to Today</button>
+            <span id="copy-status"></span>
+        </div>
+
+        <div class="data-section">
+            <div id="auto-save-status" class="auto-save-info">
+                <span class="save-indicator">💾</span>
+                Auto-saving enabled (cookies + localStorage)
+            </div>
+            <button id="enable-file-saving">Enable Automatic File Saving</button>
+            <button id="export-data">Export Data as JSON</button>
+            <button id="import-data">Import Data from JSON</button>
+            <input type="file" id="import-file" accept=".json" style="display: none;">
+            <span id="data-status"></span>
+            <div id="file-save-status" class="file-save-info"></div>
+        </div>
+    </div>
+
+    <div class="completed-this-month-section" id="completed-this-month-section">
+        <h2>✅ Done This Month</h2>
+        <div id="completed-this-month-list" class="completed-this-month-list"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
