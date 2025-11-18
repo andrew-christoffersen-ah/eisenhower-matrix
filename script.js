@@ -25,6 +25,7 @@ class EisenhowerMatrix {
         this.addTaskButton = document.getElementById('add-task');
         this.prevDayButton = document.getElementById('prev-day');
         this.nextDayButton = document.getElementById('next-day');
+        this.todayButton = document.getElementById('today-button');
         this.autoCopyTasksButton = document.getElementById('auto-copy-tasks');
         this.copyMatrixButton = document.getElementById('copy-matrix');
         this.pasteMatrixButton = document.getElementById('paste-matrix');
@@ -54,6 +55,7 @@ class EisenhowerMatrix {
 
         this.prevDayButton.addEventListener('click', () => this.navigateDate(-1));
         this.nextDayButton.addEventListener('click', () => this.navigateDate(1));
+        this.todayButton.addEventListener('click', () => this.goToToday());
 
         this.autoCopyTasksButton.addEventListener('click', () => this.autoCopyTasks());
         this.copyMatrixButton.addEventListener('click', () => this.copyMatrix());
@@ -69,48 +71,9 @@ class EisenhowerMatrix {
     }
 
     loadData() {
-        // Try to load from cookies first (for automatic persistence)
-        let data = this.loadFromCookies();
-
-        // If no cookie data, try localStorage
-        if (!data || Object.keys(data).length === 0) {
-            data = localStorage.getItem('eisenhower-matrix-data');
-            data = data ? JSON.parse(data) : {};
-        }
-
-        return data;
-    }
-
-    loadFromCookies() {
-        try {
-            const cookieData = this.getCookie('eisenhower-matrix-data');
-            return cookieData ? JSON.parse(cookieData) : {};
-        } catch (error) {
-            console.warn('Failed to load data from cookies:', error);
-            return {};
-        }
-    }
-
-    saveToCookies(data) {
-        try {
-            const dataStr = JSON.stringify(data);
-            // Set cookie to expire in 1 year
-            const expiryDate = new Date();
-            expiryDate.setFullYear(expiryDate.getFullYear() + 1);
-
-            document.cookie = `eisenhower-matrix-data=${encodeURIComponent(dataStr)}; expires=${expiryDate.toUTCString()}; path=/; SameSite=Strict`;
-        } catch (error) {
-            console.warn('Failed to save data to cookies:', error);
-        }
-    }
-
-    getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) {
-            return decodeURIComponent(parts.pop().split(';').shift());
-        }
-        return null;
+        // Load from localStorage (primary storage for large data)
+        const data = localStorage.getItem('eisenhower-matrix-data');
+        return data ? JSON.parse(data) : {};
     }
 
     checkFileSavingStatus() {
@@ -170,11 +133,8 @@ class EisenhowerMatrix {
     }
 
     saveData() {
-        // Always save to localStorage for immediate persistence
+        // Save to localStorage for persistence
         localStorage.setItem('eisenhower-matrix-data', JSON.stringify(this.data));
-
-        // Also save to cookies for automatic persistence across sessions
-        this.saveToCookies(this.data);
 
         // Also save to JSON file if we have file access
         this.saveToFile();
@@ -286,6 +246,13 @@ class EisenhowerMatrix {
 
     navigateDate(days) {
         this.currentDate.setDate(this.currentDate.getDate() + days);
+        this.displayCurrentDate();
+        this.displayDailyQuote();
+        this.loadTasksForCurrentDate();
+    }
+
+    goToToday() {
+        this.currentDate = new Date();
         this.displayCurrentDate();
         this.displayDailyQuote();
         this.loadTasksForCurrentDate();

@@ -12,7 +12,7 @@ A simple, local web-based Eisenhower Matrix application for organizing daily tas
 - **Daily Quotes**: Random inspirational quotes with fun colors and fonts each day
 - **Copy/Paste Matrices**: Copy a complete matrix from one day and paste it to another
 - **Drag & Drop**: Move tasks between quadrants by dragging and dropping
-- **Data Persistence**: Automatic saving using cookies and localStorage
+- **Data Persistence**: Automatic saving using localStorage
 - **Export/Import**: Save your data as JSON files for backup and sharing
 - **Responsive Design**: Works on desktop and mobile devices
 
@@ -93,15 +93,15 @@ Keep track of your accomplishments with the monthly completion tracker:
 
 Your Eisenhower Matrix data is automatically saved in multiple ways:
 
-- **Cookies**: Primary automatic saving - data persists across browser sessions and survives browser restarts
-- **localStorage**: Backup storage for immediate persistence during your session
-- **Optional File Saving**: Manual file export/import for long-term archival
+- **localStorage**: Primary automatic saving - data persists across browser sessions and survives browser restarts
+- **Optional File Saving**: Enable automatic file saving to a JSON file on your filesystem
+- **Manual Export/Import**: Export/import JSON files for long-term archival and backup
 
-**Cookie Benefits:**
-- Survives browser restarts and computer reboots
-- Data persists even if you clear localStorage
-- Expires after 1 year automatically
+**localStorage Benefits:**
+- Survives browser restarts and computer reboots (unless you clear browser data)
+- 5-10MB storage capacity (much larger than cookies)
 - No manual saving required - everything saves instantly
+- Fast read/write performance
 
 ## Auto-Copy Tasks
 
@@ -122,8 +122,7 @@ Quickly populate your matrix with unfinished tasks from recent days:
 
 ## Data Storage
 
-- **Automatic Cookie Saving**: Data persists across browser sessions using cookies
-- **Fallback localStorage**: Additional backup storage in browser localStorage
+- **Automatic localStorage Saving**: Data persists across browser sessions using localStorage
 - **Optional File Saving**: JSON file on your local filesystem (requires Chromium-based browser)
 - **Manual Export/Import**: JSON files with date-based structure
 - **File Structure**:

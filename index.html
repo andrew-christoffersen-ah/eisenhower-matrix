@@ -10,12 +10,13 @@
     <div class="container">
         <header>
             <h1>Eisenhower Matrix</h1>
-            <div id="daily-quote" class="daily-quote"></div>
             <div class="date-navigation">
                 <button id="prev-day">&larr; Previous Day</button>
                 <h2 id="current-date"></h2>
                 <button id="next-day">Next Day &rarr;</button>
+                <button id="today-button">Today</button>
             </div>
+            <div id="daily-quote" class="daily-quote"></div>
         </header>
 
         <div class="matrix">
@@ -70,7 +71,7 @@
         <div class="data-section">
             <div id="auto-save-status" class="auto-save-info">
                 <span class="save-indicator">💾</span>
-                Auto-saving enabled (cookies + localStorage)
+                Auto-saving enabled (localStorage)
             </div>
             <button id="enable-file-saving">Enable Automatic File Saving</button>
             <button id="export-data">Export Data as JSON</button>
